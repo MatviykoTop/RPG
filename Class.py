@@ -10,6 +10,8 @@ class Player:
         self.frame_run_left = 0
         self.velocity_y = 0
         self.gravity = 1
+        self.default_x = x
+        self.default_y = y
         self.on_ground = False
         self.rect = Rect(x + 25, y, 50, 100)
         self.rect.width = 50
@@ -70,6 +72,10 @@ class Player:
     def teleport(self, teleporter):
         if self.rect.colliderect(teleporter.image):
             self.change_level = True
+    def death(self, spike):
+        if self.rect.colliderect(spike.gd_hitbox):
+            self.rect.x = self.default_x
+            self.rect.y = self.default_y
 
 
 class Object:
@@ -84,4 +90,39 @@ class Teleporter:
 
     def draw(self, screen):
         draw.rect(screen, (255, 0, 0), self.image)
-    
+class Spike: 
+    def __init__(self, x, y, direction="up"):
+        self.x = x
+        self.y = y
+        self.direction = direction
+        if direction == "up":
+            self.points = [
+            (self.x + 25, self.y),
+            (self.x, self.y + 50),
+            (self.x + 50, self.y + 50)
+        ]     
+            self.gd_hitbox = Rect(x + 20, y + 15, 10, 20)
+        elif direction == "down":
+            self.points = [
+            (self.x, self.y),
+            (self.x + 50, self.y),
+            (self.x + 25, self.y + 50)
+        ]
+            self.gd_hitbox = Rect(x + 20, y + 15, 10, 20)
+        elif direction == "left":
+            self.points = [
+            (self.x + 50, self.y),
+            (self.x, self.y + 25),
+            (self.x + 50, self.y + 50)
+        ]
+            self.gd_hitbox = Rect(x + 15, y + 20, 20, 10)
+        elif direction == "right":
+            self.points = [
+            (self.x, self.y),
+            (self.x, self.y + 50),
+            (self.x + 50, self.y + 25)
+        ]
+            self.gd_hitbox = Rect(x + 15, y + 20, 20, 10)
+    def draw(self, screen):
+        draw.polygon(screen, (255, 0, 0), self.points)
+        draw.rect(screen, (0, 0, 255), self.gd_hitbox)

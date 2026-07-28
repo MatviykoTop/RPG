@@ -8,6 +8,7 @@ level = 1
 world = 1
 objects = [obj for obj in levels[level][world].values()]
 player = levels[level][0]
+spikes = levels[level][world + 3]
 always_objects = [Object(0, 0, 800, 20), 
                   Object(0, 580, 800, 20), 
                   Object(0, 0, 20, 600), 
@@ -30,19 +31,22 @@ while True:
                     objects = [obj for obj in levels[level][world].values()]
                     all_objects = always_objects + objects
                     invert = not invert
+                    spikes = levels[level][world + 3]
                 elif world == 2:
                     world = 1
                     objects = [obj for obj in levels[level][world].values()]
                     all_objects = always_objects + objects
                     invert = not invert
-                print(f"World: {world}")
-                print(invert)
+                    spikes = levels[level][world + 3]
     player.move(all_objects)
     player.update(all_objects)
     screen.fill((0, 0, 0))
     teleporter.draw(screen)
     screen.blit(label_surface, (50, 50))
     player.draw(screen)
+    for spike in spikes:
+        spike.draw(screen)
+        player.death(spike)
     for obj in always_objects:
         obj.draw(screen)
     for obj in objects:

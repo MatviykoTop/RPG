@@ -14,16 +14,19 @@ levels = {
 
         3: Teleporter(0, 550, 200, 50),
         4: [
-            Spike(100, 40, "up"),
-            Spike(200, 40, "down"),    
-            Spike(300, 40, "left"),
-            Spike(400, 40, "right")
+            Spike(725, 350, "up"),
+            Spike(500, 20, "down"),
+            Spike(550, 20, "down"),
+            Spike(600, 20, "down"),
+            Spike(200, 200, "right"),
+            Spike(100, 200, "left"),
+            Spike(20, 50, "right")
             ],
         5: [
-            Spike(400, 40, "up"),
-            Spike(500, 40, "down"),    
-            Spike(600, 40, "left"),
-            Spike(700, 40, "right")
+            Spike(500, 20, "down"),
+            Spike(550, 20, "down"),
+            Spike(600, 20, "down"),
+            Spike(725, 350, "up")
             ]
     },
     2: {0: Player(250, 400),

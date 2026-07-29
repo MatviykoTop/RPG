@@ -62,6 +62,7 @@ while True:
 
         player = levels[level][0]
         teleporter = levels[level][3]
+        spikes = levels[level][world + 3]
 
         objects = [obj for obj in levels[level][world].values()]
         all_objects = always_objects + objects
